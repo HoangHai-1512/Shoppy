@@ -2,9 +2,11 @@ package jar.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jar.dto.OrderRequestDto;
@@ -25,6 +27,27 @@ public class OrderController {
             return ResponseEntity.ok("Đặt hàng thành công! Mã đơn hàng của bạn là: " + newOrder.getId());
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body("Lỗi đặt hàng: " + e.getMessage());
+        }
+    }
+
+    // Thêm API mới: POST http://localhost:8080/api/orders/1/refund
+    @PostMapping("/{id}/refund")
+    public ResponseEntity<?> refundOrder(@PathVariable Long id, @RequestParam String refundMethod) {
+        try {
+            Order updatedOrder = orderService.requestRefund(id, refundMethod);
+            
+            // Theo Use case: Trả về thông tin cơ bản cho hệ thống hiển thị
+            return ResponseEntity.ok(java.util.Map.of(
+                "message", "Yêu cầu hoàn trả đã được ghi nhận!",
+                "orderId", updatedOrder.getId(),
+                "shippingAddress", updatedOrder.getShippingAddress(),
+                "originalPaymentMethod", updatedOrder.getPaymentMethod(),
+                "refundPaymentMethod", refundMethod,
+                "status", updatedOrder.getStatus(),
+                "totalAmount", updatedOrder.getTotalAmount()
+            ));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body("Lỗi: " + e.getMessage());
         }
     }
 }
