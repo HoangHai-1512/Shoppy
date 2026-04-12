@@ -1,8 +1,10 @@
 package jar.repository;
 
-import jar.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import jar.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmailOrPhone(String email, String phone);
