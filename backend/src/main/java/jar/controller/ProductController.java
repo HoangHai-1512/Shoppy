@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,5 +25,17 @@ public class ProductController {
     public ResponseEntity<List<Product>> search(@RequestParam(required = false) String keyword) {
         List<Product> products = productService.searchProducts(keyword);
         return ResponseEntity.ok(products);
+    }
+
+    // Thêm API mới: GET http://localhost:8080/api/products/1
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getProductDetail(@PathVariable Long id) {
+        try {
+            Product product = productService.getProductById(id);
+            return ResponseEntity.ok(product);
+        } catch (RuntimeException e) {
+            // Nếu không tìm thấy, trả về lỗi 400 Bad Request kèm câu thông báo
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
