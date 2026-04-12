@@ -1,5 +1,11 @@
 package jar.service;
 
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import jar.dto.OrderItemDto;
 import jar.dto.OrderRequestDto;
 import jar.entity.Order;
@@ -8,11 +14,6 @@ import jar.entity.Product;
 import jar.repository.OrderDetailRepository;
 import jar.repository.OrderRepository;
 import jar.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 @Service
 public class OrderService {
@@ -67,5 +68,28 @@ public class OrderService {
         // 3. Cập nhật lại tổng tiền cho đơn hàng chính
         savedOrder.setTotalAmount(totalAmount);
         return orderRepository.save(savedOrder);
+    }
+    
+    // Thêm hàm mới: Xử lý yêu cầu hoàn trả đơn hàng
+    @Transactional
+    public Order requestRefund(Long orderId, String refundPaymentMethod) {
+        // 1. Tìm đơn hàng
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy đơn hàng mã: " + orderId));
+
+        // 2. Kiểm tra điều kiện: Chỉ cho phép hoàn trả nếu đã nhận hàng
+        // Giả sử trạng thái đã giao là "COMPLETED"
+        if (!"COMPLETED".equals(order.getStatus())) {
+            throw new RuntimeException("Chỉ có thể yêu cầu hoàn trả cho đơn hàng ĐÃ GIAO THÀNH CÔNG (COMPLETED)!");
+        }
+
+        // 3. Cập nhật trạng thái thành Yêu cầu hoàn trả
+        order.setStatus("REFUND_REQUESTED");
+        
+        // (Nếu Entity Order của bạn có thêm cột refundMethod, bạn có thể set nó ở đây)
+        // order.setRefundMethod(refundPaymentMethod); 
+
+        // 4. Lưu vào DB
+        return orderRepository.save(order);
     }
 }
