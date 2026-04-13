@@ -3,8 +3,28 @@ const API_URL = 'http://localhost:8080/api/products/search';
 
 // Lắng nghe sự kiện: Ngay khi trang web vừa tải xong, tự động gọi hàm lấy tất cả sản phẩm
 document.addEventListener('DOMContentLoaded', function() {
+    checkLoginState(); // Gọi hàm kiểm tra đăng nhập
     fetchProducts(""); // Chuỗi rỗng = lấy tất cả
 });
+
+function checkLoginState() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const registerLink = document.getElementById('registerLink');
+    const userProfileLink = document.getElementById('userProfileLink');
+    
+    if (isLoggedIn === 'true') {
+        // Ẩn nút đăng ký, hiện avatar
+        registerLink.style.display = 'none';
+        userProfileLink.style.display = 'flex';
+        
+        // Lấy tên người dùng từ bộ nhớ
+        const userName = localStorage.getItem('userName') || 'Thành viên';
+        document.getElementById('headerUserName').innerText = userName;
+        
+        // Tự động tạo avatar xịn sò từ tên của người dùng
+        document.getElementById('userAvatarImg').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=ffffff&color=ee4d2d`;
+    }
+}
 
 // Lắng nghe sự kiện: Khi bấm nút Tìm kiếm
 document.getElementById('searchBtn').addEventListener('click', function() {
