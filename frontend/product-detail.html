@@ -61,6 +61,21 @@
         <h2 style="text-align: center; width: 100%;">Đang tải dữ liệu...</h2>
     </div>
 
+    <div class="container" id="orderSection" style="display: none; flex-direction: column; margin-top: 0; padding-top: 10px;">
+        <h3 style="color: #ee4d2d; border-bottom: 2px solid #ee4d2d; padding-bottom: 10px;">Thông tin giao hàng</h3>
+        <form id="orderForm" style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+            <input type="text" id="shippingAddress" placeholder="Nhập địa chỉ nhận hàng chi tiết..." required style="padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;">
+            
+            <select id="paymentMethod" style="padding: 12px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                <option value="BANK_TRANSFER">Chuyển khoản qua ngân hàng</option>
+            </select>
+
+            <button type="submit" class="btn-buy" style="background-color: #28a745;">XÁC NHẬN ĐẶT HÀNG</button>
+        </form>
+        <p id="orderMessage" style="margin-top: 20px; font-size: 18px; font-weight: bold; text-align: center;"></p>
+    </div>
+    
     <script src="detail.js"></script>
 </body>
 </html>
