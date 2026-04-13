@@ -46,13 +46,84 @@ function renderDetail(product) {
                 </p>
             </div>
             
-            <button class="btn-buy" onclick="buyProduct(${product.id})">ĐẶT MUA NGAY</button>
+            <button class="btn-buy" onclick="showOrderForm()">ĐẶT MUA NGAY</button>
         </div>
     `;
 }
 
-// Hàm xử lý khi bấm nút Đặt mua (Chuẩn bị cho Use Case 4)
-function buyProduct(id) {
-    alert("Chức năng Đặt hàng đang được xây dựng! Mã sản phẩm bạn muốn mua là: " + id);
-    // Sắp tới chúng ta sẽ code logic hiển thị form điền địa chỉ giao hàng ở đây
+// Hàm hiển thị form đặt hàng
+function showOrderForm() {
+
+    // 1. GỌI BẢO VỆ RA KIỂM TRA SỔ TAY
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    
+    if (!isLoggedIn) {
+        // Nếu chưa đăng ký -> Hiện thông báo và đá sang trang Đăng ký
+        alert("Bạn cần đăng ký tài khoản trước khi đặt hàng nhé!");
+        window.location.href = 'register.html';
+        return; // Lệnh return này sẽ dừng hàm lại ngay lập tức, form sẽ không được hiện ra.
+    }
+
+    const orderSection = document.getElementById('orderSection');
+    orderSection.style.display = 'flex'; // Hiện form lên
+    
+    // Tự động cuộn trang web xuống chỗ form cho mượt
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
 }
+
+// Lắng nghe sự kiện khi người dùng bấm "Xác nhận đặt hàng"
+document.getElementById('orderForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Ngăn trình duyệt tải lại trang
+
+    // 1. Thu thập dữ liệu từ Form
+    const address = document.getElementById('shippingAddress').value;
+    const method = document.getElementById('paymentMethod').value;
+    const messageEl = document.getElementById('orderMessage');
+
+    messageEl.style.color = 'blue';
+    messageEl.innerText = 'Đang xử lý đơn hàng...';
+
+    /* 2. Đóng gói dữ liệu chuẩn JSON gửi cho Backend
+       Lưu ý: Vì dự án chưa làm tính năng Đăng nhập để lấy ID người dùng thực tế, 
+       chúng ta sẽ mặc định lấy userId = 1 (Tài khoản bạn đã tạo thử nghiệm) để test.
+    */
+    const orderData = {
+        userId: localStorage.getItem('userId'), 
+        shippingAddress: address,
+        paymentMethod: method,
+        items: [
+            {
+                productId: productId, // Lấy từ biến productId trên thanh URL ở đầu file
+                quantity: 1 // Mặc định mua 1 cái cho Use Case này
+            }
+        ]
+    };
+
+    // 3. Gọi API POST đến Spring Boot
+    fetch('http://localhost:8080/api/orders/create', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(orderData)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text(); // Backend trả về chữ "Đặt hàng thành công..."
+        } else {
+            return response.text().then(err => { throw new Error(err); });
+        }
+    })
+    .then(text => {
+        // Nếu thành công: Báo xanh, ẩn nút Đặt hàng để tránh bấm 2 lần
+        messageEl.style.color = 'green';
+        messageEl.innerText = text; // In ra chuỗi "Đặt hàng thành công! Mã đơn hàng của bạn là: X"
+        document.querySelector('.btn-buy').style.display = 'none'; 
+    })
+    .catch(error => {
+        // Nếu lỗi (ví dụ hết hàng): Báo đỏ
+        messageEl.style.color = 'red';
+        messageEl.innerText = error.message;
+    });
+});
+

@@ -28,7 +28,19 @@ document.getElementById('registerForm').addEventListener('submit', function(even
     .then(text => {
         // Hiện thông báo thành công
         document.getElementById('message').style.color = 'green';
-        document.getElementById('message').innerText = text;
+        document.getElementById('message').innerText = "Đăng ký thành công! Đang chuyển về trang chủ...";
+
+        // 1. LƯU VÀO SỔ TAY (LOCAL STORAGE): Đánh dấu là đã đăng nhập
+        localStorage.setItem('isLoggedIn', 'true');
+        
+        /* Ghi chú: Tạm thời lưu userId là 1 để test đặt hàng. 
+           (Trong dự án thực tế, API đăng ký/đăng nhập của Spring Boot sẽ trả về đúng ID của người dùng này) */
+        localStorage.setItem('userId', '1'); 
+
+        // 2. CHUYỂN HƯỚNG: Tự động nhảy sang trang chủ sau 1.5 giây (để người dùng kịp đọc dòng chữ thành công)
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
     })
     .catch(error => {
         // Hiện thông báo lỗi
