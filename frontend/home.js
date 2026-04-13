@@ -76,8 +76,8 @@ function renderProducts(products) {
     });
 }
 
-// Hàm giả lập chuyển trang khi bấm "Xem chi tiết"
+// Hàm chuyển trang khi bấm "Xem chi tiết"
 function viewDetail(id) {
-    // Ở Use Case tiếp theo, chúng ta sẽ chuyển sang trang product-detail.html?id=...
-    alert("Chuẩn bị chuyển sang trang chi tiết của sản phẩm mã số: " + id);
+    // Chuyển hướng trình duyệt sang trang chi tiết và truyền ID lên URL
+    window.location.href = `product-detail.html?id=${id}`;
 }
