@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đơn hàng của tôi - Shoppy</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f5f5f5; margin: 0; }
+        header { background-color: #ee4d2d; padding: 15px 50px; color: white; }
+        header a { color: white; text-decoration: none; font-weight: bold; font-size: 24px;}
+        
+        .container { max-width: 800px; margin: 40px auto; }
+        .order-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 20px; border-left: 5px solid #ee4d2d;}
+        
+        .order-header { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px;}
+        .order-id { font-weight: bold; font-size: 18px; }
+        .order-status { font-weight: bold; padding: 5px 10px; border-radius: 4px; font-size: 14px;}
+        
+        /* Màu sắc cho từng trạng thái */
+        .status-PENDING { background-color: #fff3cd; color: #856404; }
+        .status-COMPLETED { background-color: #d4edda; color: #155724; }
+        .status-REFUND_REQUESTED { background-color: #f8d7da; color: #721c24; }
+        
+        .order-body p { margin: 5px 0; color: #555; }
+        .total-price { font-size: 20px; color: #ee4d2d; font-weight: bold; text-align: right; margin-top: 15px;}
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html">Shoppy</a>
+    </header>
+
+    <div class="container">
+        <h2 style="color: #333;">📦 Lịch sử đơn hàng của bạn</h2>
+        <div id="ordersContainer">
+            <p style="text-align: center;">Đang tải dữ liệu...</p>
+        </div>
+    </div>
+
+    <script src="history.js"></script>
+</body>
+</html>

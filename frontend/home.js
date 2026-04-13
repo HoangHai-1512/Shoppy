@@ -16,6 +16,12 @@ function checkLoginState() {
         // Ẩn nút đăng ký, hiện avatar
         registerLink.style.display = 'none';
         userProfileLink.style.display = 'flex';
+
+        document.getElementById('loginLink').style.display = 'none';
+        document.getElementById('registerLink').style.display = 'none';
+        document.getElementById('userProfileLink').style.display = 'flex';
+
+        document.getElementById('orderHistoryLink').style.display = 'block';
         
         // Lấy tên người dùng từ bộ nhớ
         const userName = localStorage.getItem('userName') || 'Thành viên';
