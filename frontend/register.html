@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Đăng Ký Tài Khoản</title>
+    <style>
+      /* Phong cách tổng thể và căn giữa trên toàn bộ trang */
+      body {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+      }
+
+      /* Thẻ container cho form đăng ký */
+      .register-card {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Phong cách cho tiêu đề */
+      h2.form-title {
+        margin: 0 0 20px 0;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+      }
+
+      /* Phong cách cho form */
+      form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* Nhóm input để căn chỉnh chiều rộng */
+      .input-group {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+
+      /* Phong cách chung cho các input */
+      input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+
+      /* Màu viền khi focus */
+      input:focus {
+        border-color: #d9534f;
+        outline: none;
+      }
+
+      /* Phong cách cho nút ĐĂNG KÝ NGAY */
+      button.submit-btn {
+        width: 100%;
+        padding: 12px;
+        background-color: #d9534f;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        text-transform: uppercase;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+      }
+
+      /* Hiệu ứng hover cho nút */
+      button.submit-btn:hover {
+        background-color: #c9302c;
+      }
+
+      /* Chỉnh lại một chút cho dòng thông báo */
+      #message {
+        margin-top: 15px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="register-card">
+      <h2 class="form-title">Đăng Ký Tài Khoản</h2>
+
+      <form id="registerForm">
+        <div class="input-group">
+          <input type="text" id="fullName" placeholder="Họ và tên" required />
+        </div>
+        <div class="input-group">
+          <input type="email" id="email" placeholder="Email" required />
+        </div>
+        <div class="input-group">
+          <input type="text" id="phone" placeholder="Số điện thoại" required />
+        </div>
+        <div class="input-group">
+          <input
+            type="password"
+            id="password"
+            placeholder="Mật khẩu"
+            required
+          />
+        </div>
+
+        <button type="submit" class="submit-btn">ĐĂNG KÝ NGAY</button>
+      </form>
+
+      <p id="message"></p>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>

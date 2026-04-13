@@ -1,0 +1,77 @@
+/* Reset các định dạng mặc định của trình duyệt */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Đặt màu nền cho toàn bộ trang và căn giữa form */
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Khung viền chứa form đăng ký (Tạo hiệu ứng thẻ card) */
+.register-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Tiêu đề */
+.register-container h2 {
+    margin-bottom: 25px;
+    color: #ee4d2d; /* Màu cam Shoppy */
+    font-size: 24px;
+}
+
+/* Các ô nhập liệu */
+input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+/* Hiệu ứng khi click vào ô nhập liệu */
+input:focus {
+    border-color: #ee4d2d;
+}
+
+/* Nút đăng ký */
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #ee4d2d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+/* Hiệu ứng khi di chuột qua nút đăng ký */
+button:hover {
+    background-color: #d73211;
+}
+
+/* Thông báo lỗi/thành công */
+#message {
+    margin-top: 20px;
+    font-size: 14px;
+}
