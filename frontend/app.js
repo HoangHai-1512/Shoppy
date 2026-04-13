@@ -36,6 +36,10 @@ document.getElementById('registerForm').addEventListener('submit', function(even
         /* Ghi chú: Tạm thời lưu userId là 1 để test đặt hàng. 
            (Trong dự án thực tế, API đăng ký/đăng nhập của Spring Boot sẽ trả về đúng ID của người dùng này) */
         localStorage.setItem('userId', '1'); 
+        // THÊM 3 DÒNG NÀY: Lấy giá trị từ các ô input và lưu lại
+        localStorage.setItem('userName', document.getElementById('fullName').value);
+        localStorage.setItem('userEmail', document.getElementById('email').value);
+        localStorage.setItem('userPhone', document.getElementById('phone').value);
 
         // 2. CHUYỂN HƯỚNG: Tự động nhảy sang trang chủ sau 1.5 giây (để người dùng kịp đọc dòng chữ thành công)
         setTimeout(() => {
