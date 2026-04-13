@@ -8,4 +8,5 @@ import jar.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmailOrPhone(String email, String phone);
+    User findByEmail(String email);
 }

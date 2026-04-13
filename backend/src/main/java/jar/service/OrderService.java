@@ -1,6 +1,7 @@
 package jar.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,4 +93,9 @@ public class OrderService {
         // 4. Lưu vào DB
         return orderRepository.save(order);
     }
+
+    // Thêm hàm này:
+public List<Order> getOrdersByUserId(Long userId) {
+    return orderRepository.findByUserId(userId);
+}
 }

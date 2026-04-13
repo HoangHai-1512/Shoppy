@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng Nhập - Shoppy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="register-card">
+        <h2 class="form-title">Đăng Nhập Shoppy</h2>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <input type="email" id="loginEmail" placeholder="Email của bạn" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="loginPassword" placeholder="Mật khẩu" required>
+            </div>
+            
+            <button type="submit" class="submit-btn">ĐĂNG NHẬP</button>
+        </form>
+
+        <p id="loginMessage" style="margin-top: 15px; font-weight: bold; text-align: center;"></p>
+        
+        <p style="margin-top: 15px; text-align: center; font-size: 14px;">
+            Chưa có tài khoản? <a href="register.html" style="color: #ee4d2d; font-weight: bold; text-decoration: none;">Đăng ký ngay</a>
+        </p>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

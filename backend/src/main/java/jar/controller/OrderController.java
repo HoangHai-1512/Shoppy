@@ -1,8 +1,11 @@
 package jar.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +20,7 @@ import jar.service.OrderService;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/api/orders")
+
 public class OrderController {
 
     @Autowired
@@ -52,4 +56,9 @@ public class OrderController {
             return ResponseEntity.badRequest().body("Lỗi: " + e.getMessage());
         }
     }
+
+    @GetMapping("/user/{userId}")
+public ResponseEntity<List<Order>> getOrdersByUser(@PathVariable Long userId) {
+    return ResponseEntity.ok(orderService.getOrdersByUserId(userId));
+}
 }
