@@ -19,6 +19,10 @@ public class Product {
     private String brand;
     private int stock; // Số lượng tồn kho
 
+    private String imageUrl;
+
+    
+
     public Long getId() {
         return id;
     }
@@ -65,6 +69,14 @@ public class Product {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     
